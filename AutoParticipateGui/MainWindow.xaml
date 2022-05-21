@@ -1,0 +1,214 @@
+﻿<Window x:Class="AutoParticipateGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoParticipateGui"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:pages="clr-namespace:AutoParticipateGui.Views.Pages"
+        xmlns:services="clr-namespace:AutoParticipateGui.Services"
+        xmlns:controls="clr-namespace:AutoParticipateGui.Controls"
+        xmlns:converters="clr-namespace:AutoParticipateGui.Converters"
+        mc:Ignorable="d"
+        Title="{Binding Title}" 
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        Width="570"
+        Height="364"
+        ResizeMode="CanMinimize"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource PrimaryBrush}">
+    <Window.Resources>
+        <converters:NavigationConverter x:Key="NavigationConverter"/>
+        <converters:ScriptStatusConverter x:Key="ScriptStatusConverter"/>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Header -->
+            <Grid Row="0"
+                  Background="Transparent">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <command:EventToCommand 
+                            Command="{Binding DragMoveCommand}" 
+                            CommandParameter="{Binding 
+                            RelativeSource={RelativeSource  AncestorType=Window}}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
+                <TextBlock Text="{Binding Title}"
+                           Foreground="{StaticResource SecondaryBrush}"
+                           HorizontalAlignment="Left"
+                           Margin="10 0 0 0"/>
+            
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    <Button Style="{StaticResource HeaderButton}"
+                            Command="{Binding MinimizeCommand}" 
+                            CommandParameter="{Binding 
+                            RelativeSource={RelativeSource  AncestorType=Window}}">
+                        <Image Source="{StaticResource minimizeDrawingImage}"/>
+                    </Button>
+                    <Button Style="{StaticResource HeaderButton}"
+                            Command="{Binding CloseCommand}" 
+                            CommandParameter="{Binding 
+                            RelativeSource={RelativeSource  AncestorType=Window}}">
+                        <Image Source="{StaticResource closeDrawingImage}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            
+            <!-- Body -->
+            <Grid Row="1">
+                <Grid.Background>
+                    <ImageBrush ImageSource="Resources/background.png"/>
+                </Grid.Background>
+                
+                <!-- Container -->
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- FrameContent -->
+                    <Grid Row="0"
+                          Margin="0 0 0 20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Sidebar -->
+                        <Grid Column="0"
+                              Width="110">
+                            <StackPanel Orientation="Vertical"
+                                        DataContext="{Binding Navigation,
+                                        Source={StaticResource Locator}}">
+                                <controls:NavigationItem Text="Логи"
+                                                         Type="{x:Type pages:General}"
+                                                         
+                                                         Active="{Binding CurrentPage,
+                                                         Converter={StaticResource NavigationConverter},
+                                                         ConverterParameter={x:Type pages:General}}"
+                                                         
+                                                         Command="{Binding NavigateCommand}"
+                                                         CommandParameter="{Binding Type, 
+                                                         RelativeSource={RelativeSource Self}}"/>
+                                
+                                <controls:NavigationItem Text="Прокси" 
+                                                         Type="{x:Type pages:Proxy}"
+                                                         
+                                                         Active="{Binding CurrentPage,
+                                                         Converter={StaticResource NavigationConverter},
+                                                         ConverterParameter={x:Type pages:Proxy}}"
+                                                         
+                                                         Command="{Binding NavigateCommand}"
+                                                         CommandParameter="{Binding Type, 
+                                                         RelativeSource={RelativeSource Self}}"
+                                                         
+                                                         Margin="0 10 0 0"/>
+                                
+                                <controls:NavigationItem Text="Задержки" 
+                                                         Type="{x:Type pages:Delays}"
+                                                         
+                                                         Active="{Binding CurrentPage,
+                                                         Converter={StaticResource NavigationConverter},
+                                                         ConverterParameter={x:Type pages:Delays}}"
+                                                         
+                                                         Command="{Binding NavigateCommand}"
+                                                         CommandParameter="{Binding Type, 
+                                                         RelativeSource={RelativeSource Self}}"
+                                                         
+                                                         Margin="0 10 0 0"/>
+                                
+                                <controls:NavigationItem Text="Веб Драйвер" 
+                                                         Type="{x:Type pages:WebDriver}"
+                                                         
+                                                         Active="{Binding CurrentPage,
+                                                         Converter={StaticResource NavigationConverter},
+                                                         ConverterParameter={x:Type pages:WebDriver}}"
+                                                         
+                                                         Command="{Binding NavigateCommand}"
+                                                         CommandParameter="{Binding Type, 
+                                                         RelativeSource={RelativeSource Self}}"
+                                                         
+                                                         Margin="0 10 0 0"/>
+                                
+                                <controls:NavigationItem Text="Уведомления" 
+                                                         Type="{x:Type pages:Notifications}"
+                                                         
+                                                         Active="{Binding CurrentPage,
+                                                         Converter={StaticResource NavigationConverter},
+                                                         ConverterParameter={x:Type pages:Notifications}}"
+                                                         
+                                                         Command="{Binding NavigateCommand}"
+                                                         CommandParameter="{Binding Type, 
+                                                         RelativeSource={RelativeSource Self}}"
+                                                         
+                                                         Margin="0 10 0 0"/>
+                            </StackPanel>
+                        </Grid>
+                        
+                        <!-- Content -->
+                        <Grid Column="1"
+                              Margin="20 0 0 0">
+                            <Border Background="#101116"
+                                    BorderBrush="{StaticResource BorderPrimaryBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="2"
+                                    Padding="18">
+                                <Frame NavigationUIVisibility="Hidden"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Content="{Binding Navigation.CurrentPage, 
+                                       Source={StaticResource Locator}}"
+                                       ContentRendered="Frame_OnContentRendered"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    
+                    <!-- Footer -->
+                    <Grid Row="1">
+                        
+                        <!-- Social -->
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom">
+                            <Button Style="{StaticResource SocialButton}"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://github.com/merely04">
+                                <Image Source="{StaticResource githubDrawingImage}"/>
+                            </Button>
+                            <Button Style="{StaticResource SocialButton}"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://t.me/sapf1rex"
+                                    Margin="10 0 0 0">
+                                <Image Source="{StaticResource telegramDrawingImage}"
+                                       Margin="0 1 2 0"/>
+                            </Button>
+                        </StackPanel>
+                    
+                        <Button Style="{StaticResource ControlButton}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding StartStopCommand}">
+                            <TextBlock Text="{Binding Status, 
+                                       Source={StaticResource ScriptStore},
+                                       Converter={StaticResource ScriptStatusConverter}}"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

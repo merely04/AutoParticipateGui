@@ -1,0 +1,61 @@
+<Page x:Class="AutoParticipateGui.Views.Pages.WebDriver"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:AutoParticipateGui.Views.Pages"
+      mc:Ignorable="d"
+      Title="WebDriver"
+      Width="360"
+      Height="199"
+      Background="Transparent"
+      DataContext="{Binding WebDriver, Source={StaticResource Locator}}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical"
+                    DataContext="{Binding Source={StaticResource SettingsStore}}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Куки"
+                           FontWeight="400"
+                           HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Cookie, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0 6 0 0"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical"
+                        Margin="0 12 0 0">
+                <TextBlock Text="Юзер агент"
+                           FontWeight="400"
+                           HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding UserAgent, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0 6 0 0"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical"
+                        Margin="0 12 0 0">
+                <TextBlock Text="Вендор браузера"
+                           FontWeight="400"
+                           HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding  BrowserVendor, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0 6 0 0"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical"
+                        Margin="0 12 0 0">
+                <TextBlock Text="Рендер системы"
+                           FontWeight="400"
+                           HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding OsRenderer, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0 6 0 0"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical"
+                        Margin="0 12 0 0">
+                <TextBlock Text="Платформа системы"
+                           FontWeight="400"
+                           HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding OsPlatform, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0 6 0 0"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
