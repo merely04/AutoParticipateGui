@@ -8,8 +8,7 @@
       Title="General"
       Width="360"
       Height="199"
-      Background="Transparent"
-      DataContext="{Binding General, Source={StaticResource Locator}}">
+      Background="Transparent">
     <Grid>
         <ListBox VirtualizingStackPanel.IsVirtualizing="True" 
                  ScrollViewer.IsDeferredScrollingEnabled="True"

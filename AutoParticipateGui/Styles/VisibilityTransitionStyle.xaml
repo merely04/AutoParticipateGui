@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz">
+    <Style x:Key="VisibilityTransitionStyle">
+        <Setter Property="tz:Transitionz.Opacity" Value="{tz:OpacityParams From=0, To=1, Duration=150, TransitionOn=Visibility}"/>
+    </Style>
+</ResourceDictionary>

@@ -5,10 +5,6 @@ namespace AutoParticipateGui.Services
     public class ApiService
     {
         private const string UpdateUrl = "https://bot-father.ru/download";
-        
-        static ApiService()
-        {
-        }
 
         public static void DownloadUpdate(string fileName)
         {

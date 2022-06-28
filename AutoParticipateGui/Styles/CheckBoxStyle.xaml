@@ -1,0 +1,97 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="CheckBoxFocusVisual">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Border>
+              <Rectangle 
+                Margin="15,0,0,0"
+                StrokeThickness="1"
+                Stroke="#60000000"
+                StrokeDashArray="1 2"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource CheckBoxFocusVisual}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="Border"
+                                    Width="18" 
+                                    Height="18" 
+                                    CornerRadius="2"
+                                    Background="#101116"
+                                    BorderBrush="#1C1D22"
+                                    BorderThickness="1">
+                                <Path Name="CheckMark"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      SnapsToDevicePixels="False"
+                                      StrokeThickness="2"
+                                      Margin="0 0 0 0"
+                                      Opacity="0"
+                                      Fill="#FFFFFF"
+                                      Data="M7.08099 0.909955C7.13063 0.859311 7.18986 0.819079 7.25524 0.791613C7.32062 0.764147 7.39081 0.75 7.46173 0.75C7.53264 0.75 7.60283 0.764147 7.66821 0.791613C7.73359 0.819079 7.79283 0.859311 7.84246 0.909955C8.05046 1.12014 8.05337 1.45978 7.84973 1.67361L3.54928 6.75735C3.50046 6.81096 3.44121 6.85406 3.37515 6.88399C3.3091 6.91392 3.23764 6.93006 3.16513 6.93142C3.09263 6.93278 3.02061 6.91933 2.95348 6.8919C2.88635 6.86447 2.82553 6.82364 2.77472 6.77189L0.15794 4.1202C0.0570196 4.01728 0.000488281 3.87889 0.000488281 3.73474C0.000488281 3.5906 0.0570196 3.4522 0.15794 3.34928C0.207575 3.29863 0.266814 3.2584 0.33219 3.23094C0.397566 3.20347 0.467764 3.18932 0.538675 3.18932C0.609586 3.18932 0.679785 3.20347 0.745161 3.23094C0.810537 3.2584 0.869776 3.29863 0.91941 3.34928L3.13909 5.59878L7.06644 0.925956C7.07097 0.920335 7.07583 0.914992 7.08099 0.909955Z"/>
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   FontFamily="{StaticResource InterRegular}"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="12 3 0 0"/>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        Storyboard.TargetName="Border"
+                                                        To="#3A71C1" 
+                                                        Duration="0:0:0.15"/>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                        Storyboard.TargetName="Border"
+                                                        To="#3A71C1" 
+                                                        Duration="0:0:0.15"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Opacity)"
+                                                        Storyboard.TargetName="CheckMark"
+                                                        To="1"
+                                                        Duration="0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        Storyboard.TargetName="Border"
+                                                        Duration="0:0:0.15"/>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                        Storyboard.TargetName="Border"
+                                                        Duration="0:0:0.15"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Opacity)"
+                                                         Storyboard.TargetName="CheckMark"
+                                                         Duration="0:0:0.15"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>         
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

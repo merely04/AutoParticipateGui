@@ -116,7 +116,7 @@
                                                          CommandParameter="{Binding Type, 
                                                          RelativeSource={RelativeSource Self}}"
                                                          
-                                                         Margin="0 10 0 0"/>
+                                                         Margin="0 11 0 0"/>
                                 
                                 <controls:NavigationItem Text="Задержки" 
                                                          Type="{x:Type pages:Delays}"
@@ -129,7 +129,7 @@
                                                          CommandParameter="{Binding Type, 
                                                          RelativeSource={RelativeSource Self}}"
                                                          
-                                                         Margin="0 10 0 0"/>
+                                                         Margin="0 9 0 0"/>
                                 
                                 <controls:NavigationItem Text="Веб Драйвер" 
                                                          Type="{x:Type pages:WebDriver}"
@@ -142,7 +142,7 @@
                                                          CommandParameter="{Binding Type, 
                                                          RelativeSource={RelativeSource Self}}"
                                                          
-                                                         Margin="0 10 0 0"/>
+                                                         Margin="0 9 0 0"/>
                                 
                                 <controls:NavigationItem Text="Уведомления" 
                                                          Type="{x:Type pages:Notifications}"
@@ -155,7 +155,20 @@
                                                          CommandParameter="{Binding Type, 
                                                          RelativeSource={RelativeSource Self}}"
                                                          
-                                                         Margin="0 10 0 0"/>
+                                                         Margin="0 9 0 0"/>
+                                
+                                <controls:NavigationItem Text="Другие" 
+                                                         Type="{x:Type pages:Other}"
+                                                         
+                                                         Active="{Binding CurrentPage,
+                                                         Converter={StaticResource NavigationConverter},
+                                                         ConverterParameter={x:Type pages:Other}}"
+                                                         
+                                                         Command="{Binding NavigateCommand}"
+                                                         CommandParameter="{Binding Type, 
+                                                         RelativeSource={RelativeSource Self}}"
+                                                         
+                                                         Margin="0 9 0 0"/>
                             </StackPanel>
                         </Grid>
                         
@@ -189,6 +202,7 @@
                                     CommandParameter="https://github.com/merely04">
                                 <Image Source="{StaticResource githubDrawingImage}"/>
                             </Button>
+                            
                             <Button Style="{StaticResource SocialButton}"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://t.me/sapf1rex"
@@ -202,9 +216,11 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 Command="{Binding StartStopCommand}">
-                            <TextBlock Text="{Binding Status, 
+                            <TextBlock Text="{Binding Status,
                                        Source={StaticResource ScriptStore},
-                                       Converter={StaticResource ScriptStatusConverter}}"/>
+                                       Converter={StaticResource ScriptStatusConverter}}"
+                                       FontFamily="{StaticResource InterMedium}"
+                                       FontSize="12"/>
                         </Button>
                     </Grid>
                 </Grid>

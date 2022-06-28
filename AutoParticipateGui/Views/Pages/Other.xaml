@@ -1,0 +1,35 @@
+<Page x:Class="AutoParticipateGui.Views.Pages.Other"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:AutoParticipateGui.Views.Pages"
+      xmlns:controls="clr-namespace:AutoParticipateGui.Controls"
+      xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"
+      mc:Ignorable="d"
+      Title="TimeObserver" 
+      Width="360"
+      Height="199"
+      Background="Transparent"
+      DataContext="{Binding Settings, Source={StaticResource Data}}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical">
+            <controls:InputItem Title="Время отключения скрипта"
+                                Watermark="12:00 - 16:00, 8:00 - 10:00"
+                                Text="{Binding OffTime, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <CheckBox IsChecked="{Binding UseLiker}" 
+                      Content="Ставить симпатии на розыгрыши"
+                      Margin="0 12 0 0"/>
+            
+            <StackPanel Style="{StaticResource VisibilityTransitionStyle}" 
+                        Orientation="Vertical"
+                        Margin="0 12 0 0"
+                        tz:Transitionz.Visibility="{Binding UseLiker, 
+                        Converter={StaticResource BoolToVisibilityConverter}}">
+                <controls:InputItem Title="Шанс поставить лайк на тему"
+                                    Text="{Binding LikeChance, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

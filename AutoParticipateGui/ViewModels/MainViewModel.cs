@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows;
+using AutoParticipateGui.Controllers;
 using AutoParticipateGui.Services;
 using AutoParticipateGui.Stores;
 using GalaSoft.MvvmLight;
@@ -38,60 +36,26 @@ namespace AutoParticipateGui.ViewModels
         {
             get
             {
-                return _startStopCommand
-                       ?? (_startStopCommand = new RelayCommand(() => {
-                           try
-                           {
-                               
-                               
-                               if (ScriptStore.Status == ScriptStatus.Idling)
-                               {
-                                   CheckDependencies();
-                                   
-                                   ScriptStore.Start();   
-                               }
-                               else
-                               {
-                                   ScriptStore.Dispose();
-                               }
-                           }
-                           catch (Exception ex)
-                           {
-                               MessageBox.Show(ex.Message,
-                                   "Зависимости",
-                                   MessageBoxButton.OK,
-                                   MessageBoxImage.Warning);
-                           }
-                       }));
-            }
-        }
-
-        protected virtual void CheckDependencies()
-        {
-            var isChromeInstalled = RegistryService.IsChromeBrowserInstalled;
-            var pythonExecutablePath = RegistryService.PythonExecutablePath;
-            var isPythonInstalled = string.IsNullOrEmpty(pythonExecutablePath) == false && 
-                                    string.IsNullOrWhiteSpace(pythonExecutablePath)  == false;
-            
-            Debug.WriteLine(pythonExecutablePath);
-
-            if (isChromeInstalled == false || isPythonInstalled == false)
-            {
-                var errors = new List<string>();
-
-                if (isChromeInstalled == false)
-                {
-                    errors.Add("Для работы необходим бразуер Chrome");
-                    Process.Start("https://www.google.com/intl/ru_ru/chrome/");
-                }
-
-                if (isPythonInstalled == false)
-                {
-                    errors.Add("Для работы необходим Python версии 3.7.6");
-                    Process.Start("https://www.python.org/ftp/python/3.7.6/python-3.7.6-amd64.exe");
-                }
-
-                throw new Exception(string.Join("\n", errors));
+                return _startStopCommand ??= new RelayCommand(() => {
+                    try
+                    {
+                        if (ScriptStore.Status == ScriptStatus.Idling)
+                        {
+                            ScriptStore.Start();   
+                        }
+                        else
+                        {
+                            ScriptStore.Dispose();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message,
+                            "Зависимости",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
+                    }
+                });
             }
         }
 
@@ -101,14 +65,13 @@ namespace AutoParticipateGui.ViewModels
         {
             get
             {
-                return _openLinkCommand
-                       ?? (_openLinkCommand = new RelayCommand<string>(obj => {
-                           try
-                           {
-                               Process.Start(obj);
-                           }
-                           catch {}
-                       }));
+                return _openLinkCommand ??= new RelayCommand<string>(obj => {
+                    try
+                    {
+                        Process.Start(obj);
+                    }
+                    catch {}
+                });
             }
         }
         
@@ -118,14 +81,13 @@ namespace AutoParticipateGui.ViewModels
         {
             get
             {
-                return _dragMoveCommand
-                       ?? (_dragMoveCommand = new RelayCommand<Window>(obj => {
-                           try
-                           {
-                               obj.DragMove();
-                           }
-                           catch {}
-                       }));
+                return _dragMoveCommand ??= new RelayCommand<Window>(obj => {
+                    try
+                    {
+                        obj.DragMove();
+                    }
+                    catch {}
+                });
             }
         }
         
@@ -135,14 +97,13 @@ namespace AutoParticipateGui.ViewModels
         {
             get
             {
-                return _minimizeCommand
-                       ?? (_minimizeCommand = new RelayCommand<Window>(obj => {
-                           try
-                           {
-                               obj.WindowState = WindowState.Minimized;
-                           }
-                           catch {}
-                       }));
+                return _minimizeCommand ??= new RelayCommand<Window>(obj => {
+                    try
+                    {
+                        obj.WindowState = WindowState.Minimized;
+                    }
+                    catch {}
+                });
             }
         }
         
@@ -152,14 +113,13 @@ namespace AutoParticipateGui.ViewModels
         {
             get
             {
-                return _closeCommand
-                       ?? (_closeCommand = new RelayCommand<Window>(obj => {
-                           try
-                           {
-                               obj.Close();
-                           }
-                           catch {}
-                       }));
+                return _closeCommand ??= new RelayCommand<Window>(obj => {
+                    try
+                    {
+                        obj.Close();
+                    }
+                    catch {}
+                });
             }
         }
     }

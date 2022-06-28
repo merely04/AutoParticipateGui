@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModels="clr-namespace:AutoParticipateGui.ViewModels"
+                    xmlns:stores="clr-namespace:AutoParticipateGui.Stores"
+                    xmlns:converters="clr-namespace:AutoParticipateGui.Converters"
+                    xmlns:controllers="clr-namespace:AutoParticipateGui.Controllers">
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    
+    <viewModels:ViewModelLocator x:Key="Locator" />
+    <controllers:DataController x:Key="Data"/>
+    
+    <stores:ScriptStore x:Key="ScriptStore"/>
+</ResourceDictionary>

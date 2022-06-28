@@ -23,12 +23,13 @@ namespace AutoParticipateGui.ViewModels
                 new Proxy(),
                 new Delays(),
                 new WebDriver(),
-                new Notifications()
+                new Notifications(),
+                new Other()
             };
 
             _currentPage = _pages.First();
         }
-        
+
         private Page _currentPage;
 
         public Page CurrentPage
@@ -43,17 +44,16 @@ namespace AutoParticipateGui.ViewModels
         {
             get
             {
-                return _navigateCommand ??
-                       (_navigateCommand = new RelayCommand<Type>(obj =>
-                       {
-                           try
-                           {
-                               var page = _pages.FirstOrDefault(x => x.GetType() == obj);
-                               if (page == null || Equals(page, CurrentPage)) return;
-                               CurrentPage = page;
-                           }
-                           catch {}
-                       }));
+                return _navigateCommand ??= new RelayCommand<Type>(obj =>
+                {
+                    try
+                    {
+                        var page = _pages.FirstOrDefault(x => x.GetType() == obj);
+                        if (page == null || Equals(page, CurrentPage)) return;
+                        CurrentPage = page;
+                    }
+                    catch {}
+                });
             }
         }
     }

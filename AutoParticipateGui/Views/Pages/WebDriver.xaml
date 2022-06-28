@@ -4,58 +4,50 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:AutoParticipateGui.Views.Pages"
+      xmlns:adorners="http://gu.se/Adorners"
+      xmlns:controls="clr-namespace:AutoParticipateGui.Controls"
       mc:Ignorable="d"
       Title="WebDriver"
       Width="360"
       Height="199"
       Background="Transparent"
-      DataContext="{Binding WebDriver, Source={StaticResource Locator}}">
+      DataContext="{Binding Settings, Source={StaticResource Data}}">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical"
-                    DataContext="{Binding Source={StaticResource SettingsStore}}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Куки"
-                           FontWeight="400"
-                           HorizontalAlignment="Left"/>
-                <TextBox Text="{Binding Cookie, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0 6 0 0"/>
-            </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <controls:InputItem Title="Куки"
+                                Watermark="lolz.guru cookie"
+                                Text="{Binding Cookie, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <controls:InputItem Title="Юзер агент"
+                                Text="{Binding UserAgent, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0 12 0 0"/>
+            
+            <controls:InputItem Title="Вендор браузера"
+                                Text="{Binding WebGlVendor, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0 12 0 0"/>
+            
+            <controls:InputItem Title="Рендер системы"
+                                Text="{Binding WebGlRenderer, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0 12 0 0"/>
+            
+            <controls:InputItem Title="Платформа системы"
+                                Text="{Binding OsPlatform, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0 12 0 0"/>
             
             <StackPanel Orientation="Vertical"
                         Margin="0 12 0 0">
-                <TextBlock Text="Юзер агент"
-                           FontWeight="400"
+                <TextBlock Text="Метод участия"
+                           FontFamily="{StaticResource InterRegular}"
                            HorizontalAlignment="Left"/>
-                <TextBox Text="{Binding UserAgent, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0 6 0 0"/>
+                <ComboBox Style="{StaticResource ComboBoxFlatStyle}" 
+                          SelectedItem="{Binding ClickType}"
+                          ItemsSource="{Binding WebDriver.ClickTypes, Source={StaticResource Locator}}"
+                          Margin="0 6 0 0"/>
             </StackPanel>
             
-            <StackPanel Orientation="Vertical"
-                        Margin="0 12 0 0">
-                <TextBlock Text="Вендор браузера"
-                           FontWeight="400"
-                           HorizontalAlignment="Left"/>
-                <TextBox Text="{Binding  BrowserVendor, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0 6 0 0"/>
-            </StackPanel>
-            
-            <StackPanel Orientation="Vertical"
-                        Margin="0 12 0 0">
-                <TextBlock Text="Рендер системы"
-                           FontWeight="400"
-                           HorizontalAlignment="Left"/>
-                <TextBox Text="{Binding OsRenderer, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0 6 0 0"/>
-            </StackPanel>
-            
-            <StackPanel Orientation="Vertical"
-                        Margin="0 12 0 0">
-                <TextBlock Text="Платформа системы"
-                           FontWeight="400"
-                           HorizontalAlignment="Left"/>
-                <TextBox Text="{Binding OsPlatform, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0 6 0 0"/>
-            </StackPanel>
+            <CheckBox IsChecked="{Binding LoadImages}" 
+                      Content="Загружать картинки"
+                      Margin="0 12 0 0"/>
         </StackPanel>
     </ScrollViewer>
 </Page>

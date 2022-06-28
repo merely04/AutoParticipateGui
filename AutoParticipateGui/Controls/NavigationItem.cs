@@ -12,7 +12,7 @@ namespace AutoParticipateGui.Controls
         }
 
         public static readonly DependencyProperty ActiveProperty = DependencyProperty.Register("Active", typeof(bool), typeof(NavigationItem), new PropertyMetadata(null));
-        public static readonly DependencyProperty TextProperty =DependencyProperty.Register("Text", typeof(string), typeof(NavigationItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(NavigationItem), new PropertyMetadata(null));
         public static readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(Type), typeof(NavigationItem), new PropertyMetadata(null));
 
         public bool Active

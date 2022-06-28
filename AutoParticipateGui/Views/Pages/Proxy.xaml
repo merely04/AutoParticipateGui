@@ -4,83 +4,51 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:AutoParticipateGui.Views.Pages"
+      xmlns:tz="http://schemas.abtsoftware.co.uk/transitionz"
+      xmlns:adorners="http://gu.se/Adorners"
+      xmlns:controls="clr-namespace:AutoParticipateGui.Controls"
       mc:Ignorable="d"
       Title="Proxy"
       Width="360"
       Height="199"
       Background="Transparent"
-      DataContext="{Binding Proxy, Source={StaticResource Locator}}">
+      DataContext="{Binding Settings, Source={StaticResource Data}}">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical"
-                    DataContext="{Binding Source={StaticResource SettingsStore}}">
+        <StackPanel Orientation="Vertical">
             <CheckBox IsChecked="{Binding UseProxy}" 
                       Content="Использовать прокси"/>
             
-            <StackPanel Orientation="Vertical"
-                        Margin="0 12 0 0">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Прокси"
-                               FontWeight="400"
-                               HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding ProxyLine, UpdateSourceTrigger=PropertyChanged}"
-                             Margin="0 6 0 0"/>
-                </StackPanel>
-            
-                <StackPanel Orientation="Vertical"
-                            Margin="0 12 0 0">
-                    <TextBlock Text="Файл с прокси"
-                               FontWeight="400"
-                               HorizontalAlignment="Left"/>
-                    <Grid Margin="0 6 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <TextBox Grid.Column="0" 
-                                 Text="{Binding ProxyFileName, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button Grid.Column="1" 
-                                Style="{StaticResource PrimaryButton}"
-                                DataContext="{Binding Proxy, Source={StaticResource Locator}}"
-                                Command="{Binding DocumentUploadCommand}"
-                                Margin="10 0 0 0">
-                            <Image Source="{StaticResource documentUploadDrawingImage}"/>
-                        </Button>
-                    </Grid>
-                </StackPanel>
+            <StackPanel Style="{StaticResource VisibilityTransitionStyle}" 
+                        Orientation="Vertical"
+                        Margin="0 12 0 0"
+                        tz:Transitionz.Visibility="{Binding UseProxy, 
+                        Converter={StaticResource BoolToVisibilityConverter}}">
+                <controls:InputItem Title="Прокси"
+                                    Watermark="ip:port@user:password"
+                                    Text="{Binding ProxyLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="Opacity" Value="0"/>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding UseProxy}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                            
-                            <Trigger Property="Visibility" Value="Visible">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(StackPanel.Opacity)"
-                                                             To="1" 
-                                                             Duration="0:0:0.15"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(StackPanel.Opacity)"
-                                                             Duration="0:0:0.45"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
+                <!-- <StackPanel Orientation="Vertical" -->
+                <!--             Margin="0 12 0 0"> -->
+                <!--     <TextBlock Text="Файл с прокси" -->
+                <!--                FontWeight="400" -->
+                <!--                HorizontalAlignment="Left"/> -->
+                <!--     <Grid Margin="0 6 0 0"> -->
+                <!--         <Grid.ColumnDefinitions> -->
+                <!--             <ColumnDefinition Width="*"/> -->
+                <!--             <ColumnDefinition Width="Auto"/> -->
+                <!--         </Grid.ColumnDefinitions> -->
+                <!--          -->
+                <!--         <TextBox Grid.Column="0"  -->
+                <!--                  Text="{Binding ProxyFileName, UpdateSourceTrigger=PropertyChanged}"/> -->
+                <!--         <Button Grid.Column="1"  -->
+                <!--                 Style="{StaticResource PrimaryButton}" -->
+                <!--                 DataContext="{Binding Proxy, Source={StaticResource Locator}}" -->
+                <!--                 Command="{Binding DocumentUploadCommand}" -->
+                <!--                 Margin="10 0 0 0"> -->
+                <!--             <Image Source="{StaticResource documentUploadDrawingImage}"/> -->
+                <!--         </Button> -->
+                <!--     </Grid> -->
+                <!-- </StackPanel> -->
             </StackPanel>
         </StackPanel>
     </ScrollViewer>
