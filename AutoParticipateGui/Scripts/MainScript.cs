@@ -109,8 +109,8 @@ namespace AutoParticipateGui.Scripts
                 {
                     "curl \"https://www.python.org/ftp/python/3.7.6/python-3.7.6-amd64.exe\" --output python.exe",
                     "python.exe /passive InstallAllUsers=0 PrependPath=1 Include_test=0 SimpleInstall=1",
-                    // "exit"
-                    "DEL /F /A python.exe"
+                    "exit"
+                    // "DEL /F /A python.exe"
                 };
                 
                 WriteLog("Загрузка файла python-3.7.6-amd64.exe");
