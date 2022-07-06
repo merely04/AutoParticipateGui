@@ -367,12 +367,15 @@ namespace AutoParticipateGui.Models
                 },
                 browser = new
                 {
-                    load_images = LoadImages,
-                    click_type = ClickType,
                     useragent = UserAgent,
                     vendor = WebGlVendor,
                     renderer = WebGlRenderer,
                     platform = OsPlatform
+                },
+                other = new
+                {
+                    load_images = LoadImages,
+                    click_type = ClickType,
                 }
             });
         }

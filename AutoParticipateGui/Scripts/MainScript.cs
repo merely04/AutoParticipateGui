@@ -53,7 +53,12 @@ namespace AutoParticipateGui.Scripts
                 });
 
                 CheckDependencies();
-                UpdateScript();
+
+                if (!CheckVersion())
+                {
+                    UpdateScript();
+                }
+
                 InstallRequirements();
                 FillSettings();
 
@@ -150,6 +155,41 @@ namespace AutoParticipateGui.Scripts
             {
                 throw new Exception(string.Join("\n", errors));
             }
+        }
+
+        protected virtual bool CheckVersion()
+        {
+            var scriptPath = FileService.ScriptPath;
+            var scriptVersionFileName = Path.Combine(scriptPath, ".version");
+
+            WriteLog("Проверка версии скрипта...");
+
+            try
+            {
+                if (File.Exists(scriptVersionFileName) == false)
+                {
+                    throw new Exception("Version file not found");
+                }
+                
+                var latestVersion = ApiService.GetLastVersion();
+                WriteLog($"Последняя версия: {latestVersion}");
+
+                using (var fs = new FileStream(scriptVersionFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var sr = new StreamReader(fs))
+                {
+                    var scriptVersion = sr.ReadLine();
+                    if (string.IsNullOrEmpty(scriptVersion) || string.IsNullOrWhiteSpace(scriptVersion))
+                    {
+                        throw new Exception("Version file is empty");
+                    }
+                    
+                    WriteLog($"Текущая версия: {latestVersion}");
+                    return latestVersion == scriptVersion;
+                }
+            }
+            catch {}
+
+            return false;
         }
 
         protected virtual void UpdateScript()

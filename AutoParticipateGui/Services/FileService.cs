@@ -7,7 +7,6 @@ namespace AutoParticipateGui.Services
     {
         static FileService()
         {
-            CreatePathIfNotExist(LogPath);
             CreatePathIfNotExist(TempPath);
             CreatePathIfNotExist(ScriptPath);
             CreatePathIfNotExist(UpdatePath);
@@ -27,11 +26,9 @@ namespace AutoParticipateGui.Services
 
         public static string TempPath => Path.Combine(Directory.GetCurrentDirectory(), "temp");
         
-        public static string LogPath => Path.Combine(Directory.GetCurrentDirectory(), "temp");
+        public static string ScriptPath => Path.Combine(TempPath, "script");
         
-        public static string ScriptPath => Path.Combine(LogPath, "script");
-        
-        public static string UpdatePath => Path.Combine(LogPath, "update");
+        public static string UpdatePath => Path.Combine(TempPath, "update");
 
         public static void UnzipFile(string fileName, string extractPath)
         {
